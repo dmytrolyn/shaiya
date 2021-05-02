@@ -1,0 +1,22 @@
+.contentWrap {
+    max-width: 1148px;
+    width: 95%;
+    margin: 0 auto;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.contentWrap > * {
+    animation: dropdownBlock 1s linear both;
+}
+
+@keyframes dropdownBlock {
+    0% {
+        max-height: 0;
+    }
+
+    to {
+        max-height: 9999px;
+    }
+}

@@ -1,0 +1,66 @@
+.paginationWrap {
+    width: 100%;
+    margin: 20px auto;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.paginationButtons {
+    height: 40px;
+    width: auto;
+    margin: 0 auto;
+
+    background: rgba(200, 200, 255, 0.05);
+    box-shadow: 0 0 5px rgba(200, 200, 255, 0.1),
+    0 0 10px rgba(200, 200, 255, 0.1);
+    border-radius: 30px;
+}
+
+.paginationButton {
+    height: 100%;
+
+    padding: 0 15px;
+    text-align: center;
+
+    font-family: Philosopher;
+    font-size: 16px;
+    line-height: 1.2;
+    font-weight: 400;
+    letter-spacing: .2em;
+    color: #fff;
+    transition: .5s;
+
+    background: transparent;
+    outline: none;
+    border: 0;
+}
+
+.paginationButton:hover {
+    background: rgba(200, 200, 255, 0.1);
+}
+
+.paginationSeparator, .paginationMove {
+    text-decoration: none;
+}
+
+.paginationPrev {
+    border-top-left-radius: 30px;
+    border-bottom-left-radius: 30px;
+}
+
+.paginationNext {
+    border-top-right-radius: 30px;
+    border-bottom-right-radius: 30px;
+}
+
+.paginationActive {
+    box-shadow: 0 0 5px rgba(200, 200, 255, 0.3);
+    background: rgba(200, 200, 255, 0.2);
+}
+
+.paginationArrow {
+    text-decoration: none;
+    letter-spacing: 2px;
+}

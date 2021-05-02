@@ -1,0 +1,17 @@
+.line {
+    width: 100%;
+    animation: light 2s linear infinite alternate;
+}
+
+.lineWrap {
+    width: 100%;
+}
+
+@keyframes light {
+    0% {
+        filter: brightness(100%);
+    }
+    to {
+        filter: brightness(150%);
+    }
+}

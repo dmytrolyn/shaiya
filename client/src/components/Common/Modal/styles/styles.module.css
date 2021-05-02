@@ -1,0 +1,41 @@
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    overflow: auto;
+    z-index: 500;
+	background: rgba(0,0,0,0.6);
+	animation: shade .5s linear both;
+    overflow: hidden;
+}
+
+.modalOverlay {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal {
+    width: 544px;
+	display: flex;
+    justify-content: flex-end;
+    z-index: 600;
+    animation: showBlock .5s linear both;
+    outline: none;
+    background: url("../assets/formbg.png");
+    background-repeat: no-repeat;
+    background-position: bottom;
+    background-size: cover;
+    position: relative;
+}
+
+@keyframes showBlock {
+	0% {
+		opacity: 0
+	}
+	to {
+		opacity: 1
+	}
+}

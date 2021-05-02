@@ -1,0 +1,13 @@
+@font-face {
+	font-family: Philosopher;
+	src: local('Philosopher'), url('../assets/fonts/philosopher_regularda344d60eeec3342a939cbbe77564179.ttf') format("truetype");
+	font-style: normal;
+	font-weight: 400
+}
+
+@font-face {
+	font-family: OpenSans;
+	src: local('OpenSans'), url('../assets/fonts/OpenSans629a55a7e793da068dc580d184cc0e31.ttf') format("truetype");
+	font-style: normal;
+	font-weight: 400
+}

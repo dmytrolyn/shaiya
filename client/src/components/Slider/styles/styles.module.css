@@ -1,0 +1,44 @@
+.slider {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    position: relative;
+}
+
+.sliderWrap {
+    width: 48%;
+    height: 300px;
+    position: relative;
+}
+
+.sliderInfo {
+    position: absolute;
+    bottom: 40px;
+    left: 50px;
+}
+
+.sliderTitle {
+    background: linear-gradient(0deg, #972a18, #ffe294);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-family: Philosopher;
+    font-size: 60px;
+    line-height: 48px;
+    font-weight: 400;
+    color: #ffdda9;
+}
+
+.sliderDesc {
+    margin-top: 10px;
+    font-family: Philosopher;
+    font-size: 22px;
+    line-height: 26px;
+    font-weight: 400;
+    letter-spacing: .01em;
+    color: #696868;
+}
+
+.pageCurrent {
+    color: #cc7954;
+}

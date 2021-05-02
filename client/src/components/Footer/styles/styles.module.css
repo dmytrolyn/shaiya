@@ -1,0 +1,131 @@
+.footer {
+    margin-top: 40px;
+    width: 100%;
+    height: 100%;
+    background-color: #04060c;
+    padding-bottom: 35px
+}
+
+.footerContentWrap {
+    max-width: 1148px;
+    width: 95%;
+    margin: 0 auto;
+    padding-top: 55px;
+}
+
+.footerContent {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 16px;
+}
+
+.footerContentBlock {
+    display: flex;
+    flex-direction: column;
+}
+
+.footerContentTitle {
+    font-family: Philosopher;
+    font-size: 18px;
+    line-height: 36px;
+    font-weight: 400;
+    text-transform: uppercase;
+    color: #cc7954;
+}
+
+.footerContentList {
+    font-family: OpenSans;
+    font-size: 14px;
+    line-height: 24px;
+    font-weight: 400;
+
+    margin-top: 3px;
+}
+
+.footerContentLink {
+    text-decoration: none;
+    font-family: OpenSans;
+    font-size: 14px;
+    text-transform: none;
+    color: #696868;
+    transition: .5s;
+}
+
+.footerContentSingle {
+    display: flex;
+    flex-direction: column;
+
+    margin-top: 15px;
+}
+
+.footerContentSingle p {
+    color: #696868;
+}
+
+.footerContentSingle a {
+    margin-top: 12px;
+    font-family: OpenSans;
+    font-weight: 500;
+    font-size: 15px;
+    color: #fff;
+}
+
+.footerContentSocial {
+    margin-top: 18px;
+    width: 80%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.footerContentSocial img {
+    width: 17px;
+    height: 10px;
+}
+
+.footerBottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    margin-top: -10px;
+
+    color: #696868;
+    font-family: OpenSans;
+    font-weight: 500;
+    font-size: 15px;
+}
+
+.footerBottomPayment {
+    max-width: 320px;
+    width: 90%;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.footerBottomPaymentItem {
+    opacity: 0.4;
+}
+
+.footerBottom span {
+    color: #fff;
+}
+
+.footerCpr {
+    margin-top: 15px;
+    max-width: 1117px;
+    width: 90%;
+}
+
+.footerCpr p {
+    opacity: .5;
+    font-family: OpenSans;
+    font-size: 10px;
+    line-height: 14px;
+    font-weight: 400;
+    text-transform: uppercase;
+    color: #696868;
+}

@@ -1,0 +1,10 @@
+.gallery {
+    max-width: 1148px;
+    width: 95%;
+    margin: 50px auto 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    position: relative;
+}

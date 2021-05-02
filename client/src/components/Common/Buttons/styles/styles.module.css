@@ -1,0 +1,16 @@
+.error {
+    color: #cc7954;
+    font-family: OpenSans;
+    font-weight: 500;
+    line-height: 20px;
+    font-size: 12px;
+
+    border: 0.5px solid #cc7954;
+    border-left: 0;
+
+    display: block;
+    position: absolute;
+    top: 0;
+    right: -50px;
+    z-index: 400;
+}

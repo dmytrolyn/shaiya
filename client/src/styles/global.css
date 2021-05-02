@@ -1,0 +1,39 @@
+* {
+	margin: 0;
+	padding: 0;
+}
+
+body {
+    width: 100%;
+	background: #0a0c15;
+	overflow-x: hidden;
+
+	cursor: url("../assets/cursors/1.png"), default;
+}
+
+ul {
+	list-style-type: none;
+}
+
+a {
+	text-decoration: none;
+	cursor: url('../assets/cursors/3.png'), auto;
+}
+
+#root {
+	min-height: 100vh;
+	width: 100%;
+
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+}
+
+.c-pointer {
+	cursor: url("../assets/cursors/3.png"), auto;
+}
+
+.cp-pointer {
+	cursor: url("../assets/cursors/7.png"), auto;
+}

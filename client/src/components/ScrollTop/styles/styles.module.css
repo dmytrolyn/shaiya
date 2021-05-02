@@ -1,0 +1,33 @@
+.scroll {
+    position: fixed;
+    left: 30px;
+    top: 50%;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    z-index: 1110;
+}
+
+.scroll span {
+    transform: rotate(-90deg);
+    margin-bottom: 30px;
+    opacity: .2;
+    font-family: Philosopher;
+    font-size: 12px;
+    line-height: 16px;
+    font-weight: 400;
+    letter-spacing: .1em;
+    color: #fff;
+}
+
+.scroll:hover span {
+    opacity: 1;
+}
+
+.scroll:hover img {
+    filter: brightness(150%);
+}
+
+.scroll img {
+    transition: .5s;
+}

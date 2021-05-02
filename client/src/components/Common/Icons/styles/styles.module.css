@@ -1,0 +1,24 @@
+.arrow {
+    margin: 0 10px;
+	transform: rotate(90deg);
+	transition: .5s;
+}
+
+.user {
+    margin-left: 5px;
+    filter: saturate(130%);
+}
+
+.success {
+    width: 20px;
+    height: 20px;
+    vertical-align: middle;
+    overflow: hidden;
+}
+
+.lock {
+    width: 20px;
+    margin-right: 5px;
+    fill:#cc7954;
+    vertical-align: middle;
+}
