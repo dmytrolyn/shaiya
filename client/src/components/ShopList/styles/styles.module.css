@@ -1,0 +1,111 @@
+.wrap {
+    width: 100%;
+    margin: 70px auto 0 auto;
+}
+
+.active {
+    background:white;
+    color: rgba(0,0,0,0.5);
+}
+
+.itemsWrap {
+    width: 95%;
+    margin: 0 auto 50px auto;
+
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-auto-rows: 1fr;
+    grid-row-gap: 80px;
+
+    font-family: Philosopher;
+    text-align: center;
+    color: rgba(255,255,255, 0.8);
+}
+
+.itemsExpWrap {
+    width: 95%;
+    margin: 0 auto;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    font-family: Philosopher;
+    color: rgba(255,255,255, 0.8);
+}
+
+.itemExpTitle {
+    font-size: 22px;
+
+    padding: 5px 20px;
+    display: flex;
+    align-items: center;
+}
+
+.itemTitle {
+    padding: 10px 25px;
+
+    font-size: 16px;
+    line-height: 26px;
+}
+
+.itemPrice {
+    padding: 10px 20px;
+    font-size: 20px;
+    line-height: 24px;
+}
+
+.itemHead {
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.itemImageWrap {
+    width: 100%;
+
+    display: flex;
+    justify-content: center;
+}
+
+.itemImageWrap img {
+    width: 100%;
+    padding: 0 10px 10px 10px;
+    border-radius: 3px;
+}
+
+.itemFooter {
+    width: 100%;
+    margin: 20px 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.itemPriceBlock {
+    margin: 0 20px;
+
+    display: flex;
+    align-items: center;
+}
+
+.prDec {
+    width: 35px;
+    height: 35px;
+
+    padding: 0 10px;
+
+    vertical-align: middle;
+}
+
+.loading {
+    width: 180px;
+    height: 180px;
+}
+
+.loadingLarge {
+    width: 20%;
+}

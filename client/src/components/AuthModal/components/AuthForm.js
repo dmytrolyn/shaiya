@@ -16,14 +16,14 @@ const AuthForm = ({ swapState, login, close }) => {
             onSubmit={async (values, { setSubmitting, setErrors }) => {
                 try {
                     let response = await API.makeLoginRequest(values);
-                    if(response.data.resultCode === 0) {
+                    if(response.resultCode === 0) {
                         let me = await API.getUserRequest();
                         if(me.resultCode === 0) {
                             login(me.data);
                             close();
                         }
                     } else {
-                        setErrors({ error: response.data.message })
+                        setErrors({ error: response.message })
                     }
                     setSubmitting(false);
                 } catch (err) {

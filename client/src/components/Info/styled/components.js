@@ -8,9 +8,13 @@ export const InfoWrap = styled.div`
 
 export const Title = styled.h1`
     font-family: Philosopher;
-    font-weight: 500;
+    font-weight: 600;
     font-size: 40px;
-    color: #cc7954;
+    background: linear-gradient(0deg, #972a18, #ffe294);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: #ffdda9;
 `;
 
 export const SingleTitle = styled(Title)`
@@ -19,8 +23,10 @@ export const SingleTitle = styled(Title)`
 
 export const ListTitle = styled.h3`
     font-family: Philosopher;
-    font-weight: 400;
-    font-size: 24px;
+    font-weight: 500;
+    font-size: 22px;
+    letter-spacing: 1px;
+    margin-bottom: 3px;
     color: ${props => props.color || "#cc7954"};
 
     margin-top: 20px;
@@ -29,7 +35,7 @@ export const ListTitle = styled.h3`
 export const Heading = styled.h2`
     font-family: Philosopher;
     font-weight: 400;
-    font-size: 30px;
+    font-size: 24px;
     color: #cc7954;
 
     margin-top: 40px;
@@ -43,7 +49,7 @@ export const Heading = styled.h2`
         position: absolute;
 
         width: 100%;
-        height: 0.5px;
+        height: 1px;
         background: #cc7954;
         bottom: -5px;
         left: 0;
@@ -51,14 +57,14 @@ export const Heading = styled.h2`
 `
 
 export const ListItem = styled.span`
-    font-family: Open-Sans;
+    font-family: Philosopher;
     font-weight: 400;
-    font-size: 16px;
+    font-size: 18px;
     letter-spacing: 1px;
 
     vertical-align: middle;
     margin-top: 5px;
-    color: hsla(0, 0%, 100%, .4);
+    color: hsla(0, 0%, 100%, .7);
 
     &::before {
         content: "- ";
@@ -69,7 +75,7 @@ export const Highlight = styled.span`
     color: yellow;
     font-family: Open-Sans;
     font-weight: 400;
-    font-size: 16px;
+    font-size: 18px;
 
     margin-left: 10px;
     vertical-align: middle;

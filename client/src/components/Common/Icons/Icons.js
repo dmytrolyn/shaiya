@@ -16,6 +16,15 @@ import { ReactComponent as CoinsIconSvg } from './assets/coins-solid.svg';
 import { ReactComponent as InfoIconSvg } from './assets/info-circle-solid.svg';
 import { ReactComponent as GemIconSvg } from './assets/gem-regular.svg';
 import { ReactComponent as NurseIconSvg } from './assets/user-nurse-solid.svg';
+import { ReactComponent as GiftsIconSvg } from './assets/gifts-solid.svg';
+import { ReactComponent as LockSvg } from './assets/lock-solid.svg';
+import { ReactComponent as UnlockSvg } from './assets/unlock-solid.svg';
+import { ReactComponent as CheckSvg } from './assets/check-solid.svg';
+import { ReactComponent as KeySvg } from './assets/key-solid.svg';
+import { ReactComponent as SignOutSvg } from './assets/sign-out-alt-solid.svg';
+import { ReactComponent as StatusSvg } from './assets/check-square-regular.svg';
+import { ReactComponent as DiceSvg } from './assets/dice-five-solid.svg';
+import { ReactComponent as PlayerSvg } from './assets/play-circle-solid.svg';
 
 export const ArrowActive = () => {
     return (
@@ -96,3 +105,40 @@ export const GemIcon = (props) => (
 export const NurseIcon = (props) => (
     <NurseIconSvg {...props} />
 )
+
+export const GiftsIcon = (props) => (
+    <GiftsIconSvg {...props} />
+)
+
+export const LockStatusIcon = (props) => (
+    <LockSvg {...props} />
+)
+
+export const UnlockStatusIcon = (props) => (
+    <UnlockSvg {...props} />
+)
+
+export const CheckStatusIcon = (props) => (
+    <CheckSvg {...props} />
+)
+
+export const KeyIcon = (props) => (
+    <KeySvg {...props} />
+)
+
+export const SignOutIcon = (props) => (
+    <SignOutSvg {...props} />
+)
+
+export const StatusIcon = (props) => (
+    <StatusSvg {...props} />
+)
+
+export const DiceIcon = (props) => (
+    <DiceSvg {...props} />
+)
+
+export const PlayIcon = (props) => (
+    <PlayerSvg {...props} />
+)
+

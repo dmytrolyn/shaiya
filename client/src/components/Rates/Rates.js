@@ -4,12 +4,12 @@ import BossTimerContainer from './components/BossTimer/BossTimerContainer';
 import SocialNetworks from './components/SocialNetworks';
 import styles from './styles/styles.module.css';
 
-const Rates = ({ killers, guilds, bosses }) => {
+const Rates = ({ topKillers, topGuilds, bosses, openAuth, hasAuth }) => {
     return (
         <div className={styles.ratesWrap}>
-            <TopRanks killers={killers} guilds={guilds} />
+            <TopRanks killers={topKillers} guilds={topGuilds} />
             <BossTimerContainer bosses={bosses} />
-            <SocialNetworks />
+            <SocialNetworks hasAuth={hasAuth} openModal={openAuth} />
         </div>
     )
 }

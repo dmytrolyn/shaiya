@@ -1,4 +1,4 @@
-import React from 'react';
+import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import cn from 'classnames';
 import NavSubMenu from './components/NavSubMenu';
@@ -7,39 +7,32 @@ import logo from './assets/menuLogo.png';
 import logIcon from './assets/logIn.png';
 import { ArrowDown } from '../Common/Icons/Icons';
 import UserBlock from './components/UserBlock';
-
-const items = [
-    { text: "Homepage", page: "/" },
-    { text: "Downloads", page:"/downloads" },
-    { text: "Info", subMenu: [
-        { text: "PvP Ranks", page: "/ranks" },
-        { text: "Guilds", page: "/guilds" },
-        { text: "Kills", page: "/kills" },
-        { text: "Boss timer", page: "/bosses" },
-    ]},
-    { text: "About us", subMenu: [
-        { text: "Drop List", page: "/droplist" },
-        { text: "About server", page: "/about" },
-    ]}
-]
+import { items } from './utils/main-menu';
 
 const NavBar = ({ user, hasAuth, logout, manageAuthModal }) => {
+    const [isOpened, setState] = useState(false);
     return (
         <div className={styles.wrap}>
             <div className={styles.navBlock}>
                 <nav className={styles.nav}>
-                    <div className={styles.logo}>
-                        <img className={styles.logoImg} src={logo} alt="logo" />
+                    <div className={styles.mobile}>
+                        <div className={cn(styles.logoMobile, isOpened && styles.logoActive)}>
+                            <img className={styles.logoImg} src={logo} alt="logo" />
+                        </div>
+                        <button className={cn(styles.mobileBtn, "c-pointer", isOpened && styles.navMobileBtnActive)} onClick={() => setState(!isOpened)}>☰</button>
                     </div>
-                    <ul className={styles.navList}>
+                    <ul className={cn(styles.navList, isOpened && styles.navActive)}>
+                        <div className={styles.logoDesktop}>
+                            <img className={styles.logoImg} src={logo} alt="logo" />
+                        </div>
                         {items.map(item => !item.subMenu ? <li key={item.text} className={styles.navItem}>
-                                <NavLink exact to={item.page} activeClassName={styles.active} className={cn(styles.navLink, "c-pointer")}>
+                                <NavLink onClick={() => setState(false)} exact to={item.page} activeClassName={styles.active} className={cn(styles.navLink, "c-pointer")}>
                                     {item.text}
                                 </NavLink>
-                            </li> : <div key={item.text} className={cn(styles.navLink, styles.navSub, "c-pointer")}>
-                                {item.text}
+                            </li> : <div key={item.text} className={cn(styles.navLink, styles.navSub, styles.navItemMobile, "c-pointer")}>
+                                <span>{item.text}</span>
                                 <ArrowDown />
-                                <NavSubMenu items={item.subMenu} />
+                                <NavSubMenu items={item.subMenu} close={() => setState(false)} />
                             </div>
                         )}
                     </ul>
@@ -47,7 +40,7 @@ const NavBar = ({ user, hasAuth, logout, manageAuthModal }) => {
                 {!hasAuth ? <div className={cn(styles.login, "c-pointer")} onClick={() => manageAuthModal(true)}>
                     <span className={styles.loginText}>Sign in</span>
                     <img className={styles.loginIcon} src={logIcon} alt="icon" />
-                </div> : <UserBlock user={user} logout={logout} />}
+                </div> : <UserBlock user={user} logout={logout} close={() => setState(false)} />}
             </div>
         </div>
     )

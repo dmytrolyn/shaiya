@@ -5,8 +5,15 @@ import { getTimeString } from '../../../../utils/bossTimer';
 export const trKeys = {
     index: "№", CharName: "Name", Family: "Faction", Job: "Class", GuildName: "Guild", MasterName: "Creator", 
     K1: "Kills", K2: "Deaths", CreateDate: "Created at", GuildPoint: "Scores", TotalCount: "Members",
-    Country: "faction", MobName: "Boss", TimeLeft: "Time left", MapID: "Map", DeleteDate: "Deleted at", JoinDate: "Created at"
+    Country: "faction", MobName: "Boss", TimeLeft: "Time left", MapID: "Map", DeleteDate: "Deleted at", JoinDate: "Created at",
+    ItemName: "Item"
 };
+
+const createGMTDate = (date) => {
+    date = new Date(date).toGMTString();
+    date = date.split(' ').slice(0, 5).join(' ');
+    return date;
+}
 
 const trValue = (key, val, size) => {
     switch(key) {
@@ -23,20 +30,19 @@ const trValue = (key, val, size) => {
             return <CustomRankIcon index={val} />;
         };
         case "CreateDate": {
-            let date = new Date(val);
-            return date.toLocaleString();
+            return createGMTDate(val);
         };
         case "JoinDate": {
-            let date = new Date(val);
-            return date.toLocaleString();
+            return createGMTDate(val);
         };
+        case "Date": {
+            return createGMTDate(val);
+        }
         case "Time": {
-            let date = new Date(val);
-            return date.toLocaleString();
+            return createGMTDate(val);
         };
         case "DeleteDate": {
-            let date = new Date(val);
-            return date.toLocaleString();
+            return createGMTDate(val);
         }
         case "TimeLeft": {
             return getTimeString(val);

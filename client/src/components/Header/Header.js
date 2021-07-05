@@ -4,12 +4,12 @@ import HeaderContent from './components/HeaderContent';
 import { TopSection } from './styled/components';
 import styles from './styles/styles.module.css';
 
-const Header = (props) => {
+const Header = ({ online, ...props}) => {
     return (
         <TopSection>
             <header className={styles.header}>
                 <NavBarContainer />
-                <HeaderContent {...props} />
+                <HeaderContent onlineStatus={online} {...props} />
             </header>
         </TopSection>
     )

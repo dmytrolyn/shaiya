@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { RefBlockRed, RefBlockBlue, RefBlockPurple, RefInfoBlock } from '../styled/components';
 import styles from '../styles/styles.module.css';
 import cn from 'classnames';
@@ -8,7 +9,7 @@ import facebook from '../assets/facebook.png';
 import book from '../assets/book.png';
 import weapons from '../assets/weapons.png';
 
-const SocialNetworks = () => {
+const SocialNetworks = ({ openModal, hasAuth }) => {
     return (
         <div className={styles.ratesBlockWrap}>
             <RefBlockRed href="/">
@@ -33,17 +34,21 @@ const SocialNetworks = () => {
                 </div>
             </RefBlockBlue>
             <RefInfoBlock>
-                <div className={cn(styles.refInfoItem, "c-pointer")}>
+                <Link to="/droplist" className={cn(styles.refInfoItem, "c-pointer")}>
                     <img src={book} alt="book" />
-                    <h2>Drop List</h2>
+                    <h2>Drop list</h2>
                     <p>Info page</p>
-                </div>
+                </Link>
                 <span className={styles.separator}></span>
-                <div className={cn(styles.refInfoItem, "c-pointer")}>
+                {hasAuth ? <Link to="/profile" className={cn(styles.refInfoItem, "c-pointer")}>
                     <img src={weapons} alt="weapons" />
-                    <h2>Shop</h2>
-                    <p>Donate</p>
-                </div>
+                    <h2>Account</h2>
+                    <p>Profile page</p>
+                </Link> : <div onClick={openModal} className={cn(styles.refInfoItem, "c-pointer")}>
+                    <img src={weapons} alt="weapons" />
+                    <h2>Register</h2>
+                    <p>Join us now!</p>
+                </div>}
             </RefInfoBlock>
         </div>
     )

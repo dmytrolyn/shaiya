@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const { fetchQuery, runQuery } = require('../config/db');
-const { ranksQuery, getPlayersCount } = require('../queries/queries');
+const { ranksQuery, getPlayersCount } = require('../queries/ranks');
 const setRank = require('../utils/ranks');
 const defaultTitles = require('../utils/defaultTitles');
 

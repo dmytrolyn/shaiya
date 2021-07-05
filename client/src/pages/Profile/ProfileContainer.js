@@ -2,35 +2,31 @@ import React, { useEffect } from 'react';
 import Profile from './Profile';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
-import { getInfo, getUserChars, getRewards } from '../../services/reducers';
-import { setProfileData, manageAlertModal, deleteCharThunk, resurrectCharThunk, getRewardThunk } from '../../services/actions';
+import { withRouter } from 'react-router-dom';
+import { getInfo, getUserChars, getRewards, getSpenders, getRoulette } from '../../services/reducers';
+import { setProfileData, deleteCharThunk, resurrectCharThunk, getRewardThunk, getSpenderRewardThunk, getRouletteRewardThunk, logoutThunk } from '../../services/actions';
 import Loading from '../../components/Common/Loading/Loading';
 import { AsyncButton } from '../../components/Common/Buttons/Buttons';
 import withoutAuthRedirect from '../../hocs/withoutAuthRedirect';
-import { getFullUserRequest, getAllUserChars, getRanksRewards } from '../../api/api';
+import { getFullUserRequest, getAllUserChars, getRanksRewards, getActiveSpenders, getRouletteItems } from '../../api/api';
 
-const ProfileContainer = ({ user, chars, rewards, setProfileData, deleteCharThunk, resurrectCharThunk, getRewardThunk, manageAlertModal }) => {
+const ProfileContainer = ({ location, user, chars, rewards, spenders, roulette, setProfileData, deleteCharThunk, 
+    resurrectCharThunk, getRewardThunk, getSpenderRewardThunk, getRouletteRewardThunk, logoutThunk }) => {
+        
     useEffect(() => {
         const getData = async () => {
-            try {
-                let [userData, chars, rewards] = await Promise.all([getFullUserRequest(), getAllUserChars(), getRanksRewards()]);
-                setProfileData(userData, chars, rewards);
-            } catch(err) {
-
-            }
+            let [userData, chars, rewards, spenders, roulette] = await Promise.all([getFullUserRequest(), getAllUserChars(), getRanksRewards(), getActiveSpenders(), getRouletteItems()]);
+            setProfileData(userData, chars, rewards, spenders, roulette);
         }
-        if(!user) {
-            getData();
-        }
+        if(!user) getData();
     })
 
     const transformDeletedChars = () => {
         let { data, titles } = chars.data.deleted;
-        let { loading, errors } = chars;
+        let { loading } = chars;
         let trData = data.map(({CharID, JoinDate, ...item}) => ({...item, Action: <AsyncButton request={() => resurrectCharThunk(CharID)} 
             disabled={chars.data.active.data.length >= 5} 
             isLoading={loading.some(r => r === CharID )}
-            error={errors.find(e => e.hasOwnProperty(CharID))}
             text="Resurrect" />}));
         let trTitles = [...titles, "Action"];
         return { data: trData, titles: trTitles };
@@ -38,32 +34,29 @@ const ProfileContainer = ({ user, chars, rewards, setProfileData, deleteCharThun
 
     const transformActiveChars = () => {
         let { data, titles } = chars.data.active;
-        let { loading, errors } = chars;
-        let trData = data.map(({CharID, ...item}) => ({...item, Action: <AsyncButton request={() => deleteCharThunk(CharID)}
-            isLoading={loading.some(r => r === CharID )}
-            error={errors.find(e => e.hasOwnProperty(CharID))}
-            text="Delete" />}));
+        let { loading } = chars;
+        let trData = data.map(({CharID, ...item}) => ({...item, Action: <AsyncButton request={() => deleteCharThunk(CharID)} isLoading={loading.some(r => r === CharID )} text="Delete" />}));
         return { data: trData, titles: [...titles, "Action"] };
     }
 
     const transformRewards = () => {
         let { data, titles, received, current } = rewards.data;
-        let { loading, errors } = rewards;
+        let { loading } = rewards;
         let isReceived = (rank) => received.some(r => r.Rank === rank); 
-        let trData = data.map(item => ({...item, Action: <AsyncButton locked={current < item.Rank} 
-            status={isReceived(item.Rank)} 
-            request={() => getRewardThunk(item.Rank)} 
-            isLoading={loading.some(r => r === item.Rank )}
-            error={errors.find(e => e.hasOwnProperty(item.Rank))}
-            text="Get reward" />}));
-        return { data: trData, titles: [...titles, "Action"] };
+        let trData = data.map(item => ({...item, Action: <AsyncButton locked={current < item.Rank} status={isReceived(item.Rank)} request={() => getRewardThunk(item.Rank)} isLoading={loading.some(r => r === item.Rank )} text="Get reward" />}));
+        return { data: trData, titles: [...titles, "Action"], error: rewards.error };
     }
 
     return (
-        !user ? <Loading /> : <Profile user={user} 
-                                openChangeAlert={() => manageAlertModal(true, "Your password was successfully changed!")}
-                                chars={{ deleted: transformDeletedChars(), active: transformActiveChars() }}
+        !user ? <Loading /> : <Profile user={user}
+                                chars={{ deleted: transformDeletedChars(), active: transformActiveChars(), price: chars.data.price, errors: chars.errors }}
                                 rewards={transformRewards()}
+                                spenders={spenders}
+                                roulette={roulette}
+                                getRouletteReward={getRouletteRewardThunk}
+                                getSpenderReward={getSpenderRewardThunk}
+                                logout={logoutThunk}
+                                init={location.state}
                                 />
     )
 }
@@ -71,7 +64,15 @@ const ProfileContainer = ({ user, chars, rewards, setProfileData, deleteCharThun
 const mapStateToProps = (state) => ({
     user: getInfo(state),
     chars: getUserChars(state),
-    rewards: getRewards(state)
+    rewards: getRewards(state),
+    spenders: getSpenders(state),
+    roulette: getRoulette(state)
 })
 
-export default compose(withoutAuthRedirect, connect(mapStateToProps, { setProfileData, manageAlertModal, deleteCharThunk, resurrectCharThunk, getRewardThunk }))(ProfileContainer);
+export default compose(withoutAuthRedirect, withRouter, connect(mapStateToProps, { setProfileData, 
+    deleteCharThunk, 
+    resurrectCharThunk, 
+    getRewardThunk,
+    getSpenderRewardThunk,
+    getRouletteRewardThunk,
+    logoutThunk }))(ProfileContainer);

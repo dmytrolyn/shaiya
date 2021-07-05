@@ -6,15 +6,6 @@ const useFilter = (dataset, key, cb) => {
     const [data, setData] = useState(dataset);
     const [criteria, setCriteria] = useState(null);
 
-    const changeData = (values) => {
-        if(values.length === 0) {
-            setCriteria(null);
-        }
-        else {
-            setCriteria(values);
-        }
-    }
-
     useEffect(() => {
         if(criteria) {
             setData(filter(dataset, criteria, key, cb));
@@ -23,7 +14,7 @@ const useFilter = (dataset, key, cb) => {
         }
     }, [dataset, criteria, key, cb])
 
-    return [data, changeData];
+    return [data, setCriteria];
 }
 
 export default useFilter;

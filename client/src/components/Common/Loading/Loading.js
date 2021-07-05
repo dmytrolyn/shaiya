@@ -2,10 +2,10 @@ import React from 'react';
 import spinner from './assets/spinner.svg';
 import styles from './styles/styles.module.css';
 
-const Loading = () => {
+const Loading = ({ show = true, ...props }) => {
     return (
-        <div className={styles.loadingWrap}>
-            <img className={styles.loading} src={spinner} alt="spinner" />
+        show && <div className={styles.loadingWrap}>
+            <img className={styles.loading} {...props} src={spinner} alt="spinner" />
         </div>   
     )
 }

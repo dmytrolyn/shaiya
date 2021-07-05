@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const { fetchQuery } = require('../config/db');
-const { guildsQuery, getGuildsCount } = require('../queries/queries');
+const { guildsQuery, getGuildsCount } = require('../queries/guilds');
 
 router.get('/', fetchQuery(guildsQuery, "guilds"));
 

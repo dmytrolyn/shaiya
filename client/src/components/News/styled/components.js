@@ -4,6 +4,7 @@ import newsIcon from '../assets/newsIcon.png';
 import arrow from '../assets/arrowDown.png';
 import arrowActive from '../assets/arrowActive.png';
 import { Link } from 'react-router-dom';
+import { CommonContentWrap } from '../../Common/styled/components';
 
 export const NewsWrap = styled.div`
     width: 42%;
@@ -15,7 +16,37 @@ export const NewsWrap = styled.div`
 
 export const NewsContent = styled.div`
     width: ${props => props.all ? "90%" : "100%"};
-    margin: 0 auto;
+    margin: ${props=> props.all ? '30px auto' : '0 auto'};
+`;
+
+export const NewsItemLink = styled(Link)`
+    font-family: ${props => props.big ? "Philosopher" : "OpenSans"};
+    font-size: ${props => props.big ? "20px" : "14px"};
+    line-height: 20px;
+    font-weight: 400;
+    color: #fcedc0;
+    transition: .5s;
+`;
+
+export const NewsContentItem = styled(CommonContentWrap)`
+    margin: 25px 0;
+
+    background: rgba(0,0,0, 0.2);
+    border: 1px solid rgba(206, 205, 205, 0.3);
+    transition: .3s;
+
+    &:hover {
+        box-shadow: inset 0 0 10px rgba(206, 205, 205, 0.4);
+
+        img {
+            transform: scale(1.01);
+            box-shadow: 0 0 8px rgba(0,0,0,0.3);
+        }
+    }
+
+    &:hover ${NewsItemLink} {
+        text-decoration: underline;
+    }
 `;
 
 export const AllNewsWrap = styled.div`
@@ -25,7 +56,7 @@ export const AllNewsWrap = styled.div`
     padding: 30px 35px 10px 40px;
     background: url(${newsBg});
     background-size: cover;
-`
+`;
 
 export const NewsItem = styled.div`
     display: flex;
@@ -66,15 +97,6 @@ export const NewsItem = styled.div`
     }
 `;
 
-export const NewsItemLink = styled(Link)`
-    text-decoration: none;
-    font-family: OpenSans;
-    font-size: ${props => props.big ? "20px" : "14px"};
-    line-height: 20px;
-    font-weight: 400;
-    color: #fcedc0;
-    transition: .5s;
-`;
 
 export const NewsItemArrow = styled.span`
     width: 8px;

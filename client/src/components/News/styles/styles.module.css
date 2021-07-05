@@ -13,6 +13,30 @@
     align-items: center;
 }
 
+.newsItemContent {
+    width: 95%;
+    margin: 25px auto;
+
+    font-family: Philosopher;
+}
+
+.newsItemHead {
+    width: 100%;
+    border-bottom: 1px solid rgba(255,255,255, 0.8);
+}
+
+.newsItemTitle {
+    font-size: 32px;
+    color: white;
+
+    padding: 5px 0;
+}
+
+.newsItemContentDate {
+    font-size: 22px;
+    color: white;
+}
+
 .allNews {
     font-family: OpenSans;
     font-size: 14px;
@@ -34,11 +58,108 @@
 }
 
 .newsItemHead {
+    width: 95%;
+    margin: 0 auto;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.newsWrap {
+    width: 90%;
+    height: 250px;
+
+    margin: 0 auto;
+    padding: 10px 0;
+
+    display: flex;
+    justify-content: space-around;
+}
+
+.newsContent {
+    width: 65%;
+
+    height: 80%;
+    margin: auto 0;
+    padding-left: 20px;
+}
+
+.newsHead {
     width: 100%;
 
     display: flex;
     justify-content: space-between;
     align-items: center;
+
+    border-bottom: 1px solid rgba(206, 205, 205, 0.3);
+    padding: 10px;
+
+    font-family: OpenSans;
+    font-size: 14px;
+    line-height: 14px;
+    font-weight: 400;
+}
+
+.newsDate {
+    color: #fff;
+}
+
+.newsItemWrap {
+    width: 90%;
+    margin: 30px auto;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    font-family: Philosopher;
+}
+
+.newsImagePreviewWrap {
+    width: 35%;
+    height: 90%;
+    margin: auto 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.newsItemImagePreviewWrap {
+    width: 100%;
+
+    margin: 30px 0;
+    box-shadow: 0 0 20px rgba(0,0,0, 0.5);
+}
+
+.newsItemImagePreviewWrap img {
+    max-width: 100%;
+    max-height: 100%;
+
+    transition: .3s;
+}
+
+.newsImagePreviewWrap img {
+    max-width: 100%;
+    max-height: 100%;
+
+    vertical-align: middle;
+    border-radius: 5px;
+    transition: .3s;
+}
+
+.newsBody {
+    padding: 10px;
+
+    font-family: OpenSans;
+    font-size: 14px;
+    line-height: 20px;
+    font-weight: 400;
+
+    color: rgba(255,255,255, 0.5);
+
+    display: flex;
 }
 
 .newsItemBody {
@@ -65,6 +186,14 @@
     margin-left: auto;
 }
 
+.newsItemBodyText {
+    font-size: 20px;
+    line-height: 28px;
+
+    font-family: Philosopher;
+    color: rgba(255,255,255, 0.7);
+}
+
 .newsItemDecText {
     font-family: OpenSans;
     font-size: 14px;
@@ -80,5 +209,17 @@
     font-size: 14px;
     line-height: 20px;
     font-weight: 400;
+    color: #fff;
+}
+
+.newsType {
+    display: inline-block;
+
+    padding: 3px 5px;
+    border: 1px solid rgba(255,255,255, 0.8);
+    margin-right: 10px;
+
+    font-size: 14px;
+    font-weight: 300;
     color: #fff;
 }

@@ -1,0 +1,25 @@
+.wrap {
+    width: 95%;
+    margin: 0 auto;
+
+    display: flex;
+    justify-content: space-between;
+}
+
+.textWrap {
+    margin: 150px 0 0 30px;
+}
+
+.desc {
+    text-align: center;
+    font-family: Philosopher;
+    font-size: 18px;
+    font-weight: 400;
+    color: rgb(197, 183, 183);
+    margin: 15px 0;
+}
+
+.img {
+    
+
+}

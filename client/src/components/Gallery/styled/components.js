@@ -6,6 +6,31 @@ import arrowRight from '../assets/arrowRight.png';
 import arrowLeft from '../assets/arrowLeft.png';
 import { pointer } from '../../../utils/cPointer';
 
+export const VideoLink = styled.span`
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    display: block;
+
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: rgba(0,0,0, 0.3);
+
+    cursor: ${pointer};
+
+    &:hover {
+        background: rgba(0,0,0, 0.1);
+    }
+
+    z-index: 20;
+`;
+
 export const GallerySlider = styled(Slider)`
     .slick-track {
         display: flex;
@@ -34,6 +59,9 @@ export const GallerySlider = styled(Slider)`
         height: 100%;
         margin: 0 10px;
         outline: none;
+
+        position: relative;
+        z-index: -1;
 
         div {
             height: 100%;
@@ -96,4 +124,4 @@ export const GallerySlider = styled(Slider)`
             margin-left: 45px;
         }
     }
-`
+`;

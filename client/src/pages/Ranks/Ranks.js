@@ -1,6 +1,6 @@
 import React from 'react';
 import Table from '../../components/Common/Table/Table';
-import { ContentWrap, ContentTitle, ContentOptions, ContentOption, TableWrap } from '../../components/Common/styled/components';
+import { ContentWrap, ContentSideTitle, ContentOptions, ContentOption, TableWrap } from '../../components/Common/styled/components';
 import { Label } from '../../components/Common/Labels/styled/components';
 import { Input } from '../../components/Common/Inputs/styled/components';
 import { Select } from '../../components/Common/Selects/Selects';
@@ -10,14 +10,15 @@ import useSearch from '../../hooks/useSearch';
 import useFilter from '../../hooks/useFilter';
 
 const factionOptions = [
-    { value: [], label: "All" },
+    { value: null, label: "All" },
     { value: [0, 1], label: "AoL" },
     { value: [2, 3], label: "UoF" },
 ]
 
 const levelOptions = [
-    { value: [], label: "All" },
-    { value: [[0, 30]], label: 30 },
+    { value: null, label: "All" },
+    { value: [[ 1, 15 ]], label: 15 },
+    { value: [[16, 30]], label: 30 },
     { value: [[30, 70]], label: 70 },
 ]
 
@@ -33,7 +34,7 @@ const Ranks = ({ ranks }) => {
     return (
         <ContentWrap>
             <ContentOptions>
-                <ContentTitle>Ranks</ContentTitle>
+                <ContentSideTitle>Ranks</ContentSideTitle>
                 <ContentOption>
                     <Select onChange={(option) => { setFData(option.value) }} label="Faction" id="faction" options={factionOptions} defaultValue={factionOptions[0]} />
                 </ContentOption>

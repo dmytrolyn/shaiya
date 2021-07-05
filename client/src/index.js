@@ -7,6 +7,7 @@ import Modal from 'react-modal';
 import reducer from './services/reducers';
 import thunk from 'redux-thunk';
 import { BrowserRouter as Router } from 'react-router-dom';
+import ErrorBoundary from './components/Error/PageErrorBoundary';
 
 Modal.setAppElement('#root');
 
@@ -19,9 +20,11 @@ const store = createStore(
 
 ReactDOM.render(
   <Provider store={store}>
-    <Router>
-      <App />
-    </Router>
+    <ErrorBoundary>
+      <Router>
+        <App />
+      </Router>
+    </ErrorBoundary>
   </Provider>,
   document.getElementById('root')
 );

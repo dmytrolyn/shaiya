@@ -6,11 +6,13 @@ import btnClose from '../assets/btnClose.png';
 
 const Button = styled.button`
     width: 151px;
-    height: 44px;
+    height: 42px;
     border: none;
     outline: none;
     cursor: ${pointer};
     transition: filter 0.3s ease-in-out;
+
+    position: relative;
 
     span {
         box-shadow: 0 2px 1px 0 rgb(0 0 0 / 20%);
@@ -23,10 +25,26 @@ const Button = styled.button`
         color: #fff;
     }
 
-    &:hover {
-        filter: brightness(150%);
-    }
-`
+    ${props => !props.disabled ? `
+        &:hover {
+            filter: brightness(150%);
+        }
+    ` : `
+        cursor: not-allowed;
+
+        &::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+
+            width: 100%;
+            height: 100%;
+
+            background: rgba(0,0,0, 0.4);
+        }
+    `}
+`;
 
 export const BlueButton = styled(Button)`
     background: url(${buttonBlue}) no-repeat;
@@ -56,8 +74,14 @@ export const GreenButton = styled.button`
 
 export const CloseButton = styled.div`
     position: absolute;
-    top: -50px;
-    right: -50px;
+    ${({ offset }) => offset ? `
+        top: ${offset.top}px;
+        right: ${offset.right}px;
+    ` : `
+        top: -50px;
+        right: -50px;
+    `}
+
     transition: .5s;
     z-index: 20;
     width: 105px;
@@ -78,7 +102,7 @@ export const ActionButton = styled.button`
     display: inline-flex;
     align-items: center;
     background: transparent;
-    border: none;
+    border: 1px solid #382820;
     color: #cc7954;
     font-family: OpenSans;
     font-weight: 500;
@@ -92,7 +116,7 @@ export const ActionButton = styled.button`
     position: relative;
 
     ${props => !props.locked && `
-        background: linear-gradient(to left, transparent 51%, #cc7954 49%) right no-repeat;
+        background: linear-gradient(to left, transparent 50%, #cc7954 50%) right no-repeat;
         background-size: 200%;
         &:hover {
             background-position: left;

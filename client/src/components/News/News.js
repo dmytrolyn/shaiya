@@ -8,7 +8,7 @@ import cn from 'classnames';
 
 const News = ({ news }) => {
     return (
-        news && <div className={styles.newsBlock}>
+        <div className={styles.newsBlock}>
             <Slider />
             <NewsWrap>
                 <NewsContent>
@@ -16,7 +16,7 @@ const News = ({ news }) => {
                         <BlockTitle>Last news</BlockTitle>
                         <Link className={cn(styles.allNews, "c-pointer")} to="/news">All news</Link> 
                     </div>
-                    {news.map(item => <NewsItem>
+                    {news && news.map(item => <NewsItem key={item.RowID}>
                         <div className={styles.newsItemInfo}>
                             <div>
                                 <NewsItemLink to={`/news/${item.RowID}`}>{item.Title}</NewsItemLink>

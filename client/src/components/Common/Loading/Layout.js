@@ -1,11 +1,11 @@
 import React from 'react';
-import { LoadingLayout } from '../LoadingLayout/styled/components';
+import { LoadingLayout } from './styled/components';
 import Loading from './Loading';
 
-export const Layout = ({ show }) => { 
+export const Layout = ({ show, withLoading = true, cn }) => { 
     return (
         <LoadingLayout show={show}>
-            <Loading />
+            <Loading className={cn} show={withLoading} />
         </LoadingLayout>
     )
 }

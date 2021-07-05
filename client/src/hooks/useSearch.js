@@ -6,10 +6,6 @@ const useSearch = (dataset, attr) => {
     const [data, setData] = useState(dataset);
     const [searchVal, setSearchVal] = useState(null);
 
-    const changeData = (val) => {
-        setSearchVal(val);
-    }
-
     useEffect(() => {
         if(searchVal) {
             setData(search(dataset, attr, searchVal));
@@ -18,7 +14,7 @@ const useSearch = (dataset, attr) => {
         }
     }, [dataset, attr, searchVal])
 
-    return [data, changeData];
+    return [data, setSearchVal];
 }
 
 export default useSearch;

@@ -5,6 +5,7 @@ import Loading from '../Common/Loading/Loading';
 import styles from './styles/styles.module.css';
 import usePrevious from '../../hooks/usePrevious';
 
+import PageErrorBoundary from '../Error/PageErrorBoundary';
 import Index from '../../pages/Index/IndexContainer';
 
 const Ranks = React.lazy(() => import('../../pages/Ranks/RanksContainer'));
@@ -13,8 +14,10 @@ const Downloads = React.lazy(() => import('../../pages/Downloads/Downloads'));
 const Bosses = React.lazy(() => import('../../pages/Bosses/BossesContainer'));
 const Profile = React.lazy(() => import('../../pages/Profile/ProfileContainer'));
 const DropList = React.lazy(() => import('../../pages/DropList/DropList'));
-const Kills = React.lazy(() => import('../../pages/Kills/KillsContainer'));
 const News = React.lazy(() => import('../../pages/News/NewsContainer'));
+const NewsItem = React.lazy(() => import('../../components/News/NewsItem'));
+const Donate = React.lazy(() => import('../../pages/Donate/DonateContainer'));
+const Shop = React.lazy(() => import('../../pages/Shop/ShopContainer'));
 
 const Content = (props) => {
     const ref = useRef();
@@ -34,20 +37,24 @@ const Content = (props) => {
     return (
         <div ref={ref} className={styles.contentWrap}>
             <Line />
-            <Switch>
-                <Route exact path="/" component={Index} />
-                <Suspense fallback={<Loading />}>
-                    <Route path="/ranks" component={Ranks} />
-                    <Route path="/guilds" component={Guilds} />
-                    <Route path="/downloads" component={Downloads} />
-                    <Route path="/bosses" component={Bosses} />
-                    <Route path="/profile" component={Profile} />
-                    <Route path="/droplist" component={DropList} />
-                    <Route path="/kills" component={Kills} />
-                    <Route path="/news" component={News} />
-                </Suspense>
-                <Route path="/" component={() => <div>Page not found</div>} />
-            </Switch>
+            <PageErrorBoundary>
+                <Switch>
+                    <Route exact path="/" component={Index} />
+                    <Suspense fallback={<Loading />}>
+                        <Route path="/ranks" component={Ranks} />
+                        <Route path="/guilds" component={Guilds} />
+                        <Route path="/downloads" component={Downloads} />
+                        <Route path="/bosses" component={Bosses} />
+                        <Route path="/profile" component={Profile} />
+                        <Route path="/droplist" component={DropList} />
+                        <Route path="/news/:id" component={NewsItem} />
+                        <Route exact path="/news" component={News} />
+                        <Route path="/donate" component={Donate} />
+                        <Route path="/shop" component={Shop} />
+                    </Suspense>
+                    <Route path="/" component={() => <div className={styles.notFound}>Page not found</div>} />
+                </Switch>
+            </PageErrorBoundary>
         </div>
     )
 }

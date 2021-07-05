@@ -3,7 +3,7 @@ import { GET_RANK_REWARD, RANK_REWARD_LOADING, RANK_REWARD_ERROR } from '../../.
 const initialState = {
     data: null,
     loading: [],
-    errors: []
+    error: ""
 }
 
 const manageRewards = (state = initialState, action) => {
@@ -21,12 +21,7 @@ const manageRewards = (state = initialState, action) => {
             }
         }
         case RANK_REWARD_ERROR: {
-            let { rank, error } = action;
-            if(error) {
-                return {...state, errors: [...state.errors, { [rank]: error }]};
-            } else {
-                return {...state, errors: state.errors.filter(e => !e.hasOwnProperty(rank))};
-            }
+            return {...state, error: action.error };
         }
         default: return state;
     }

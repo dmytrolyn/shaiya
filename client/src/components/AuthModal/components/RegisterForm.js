@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Layout } from '../../Common/Loading/Layout';
 import { FormInput } from '../../Common/Inputs/Inputs';
 import { ButtonGreen } from '../../Common/Buttons/Buttons';
@@ -9,7 +9,9 @@ import cn from 'classnames';
 import { validateLogin, validatePassword } from '../../../utils/validators';
 import * as API from '../../../api/api';
 
-const RegisterForm = ({ swapState, openAlert }) => {
+const RegisterForm = ({ swapState }) => {
+    const [success, setState] = useState(false);
+
     return (
         <Formik
             initialValues={{ login: '', password: '', password2: '', error: '' }}
@@ -26,7 +28,8 @@ const RegisterForm = ({ swapState, openAlert }) => {
                     setSubmitting(false);
                     if(res.resultCode === 0) {
                         resetForm();
-                        openAlert();
+                        setState(true);
+                        setTimeout(() => setState(false), 4000);
                     } else {
                         setErrors({ error: res.message })
                     }
@@ -49,6 +52,7 @@ const RegisterForm = ({ swapState, openAlert }) => {
                         <Field label="repeat" validate={validatePassword} type="password" placeholder="repeat password" name="password2" id="password2" component={FormInput} />
                     </div>
                     <ErrorMessage name="error" className={styles.modalFormGlobalError} component="div" />
+                    {success && <div className={styles.modalFormSuccess}>Your account was successfully registered</div>}
                     <div className={styles.modalFormButtons}>
                         <div className={styles.modalFormOptions}>
                             <div onClick={swapState} className={cn(styles.modalFormOption, styles.modalFormOptionLink, "c-pointer")}>Back to login</div>

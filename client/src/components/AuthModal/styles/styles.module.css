@@ -17,6 +17,15 @@
     margin-top: 10px;
 }
 
+.modalFormSuccess {
+    color: #00b300;
+    text-align: center;
+    font-family: OpenSans;
+    font-size: 16px;
+    font-weight: 400;
+    margin-top: 10px;
+}
+
 .modalFormGroup {
     position: relative;
 }

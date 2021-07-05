@@ -66,7 +66,8 @@ const customStyles = {
         color: '#fff',
         border: '0.5px solid hsla(0,0%,100%,.3)',
         position: 'absolute',
-        bottom: '-160px',
+        bottom: `${state.el * 40}px`,
+        zIndex: 200,
         padding: 0,
         left: 0,
         overflowY: 'none',
@@ -80,12 +81,12 @@ const customStyles = {
     })
 }
 
-export const Select = ({ label, id, ...props}) => {
+export const Select = ({ label, id, options, ...props}) => {
     const ref = useRef();
 
     return (
         <>
-            <ReactSelect id={id} onMenuOpen={() => { ref.current.style.color = "#cc7954" }} onMenuClose={() => { ref.current.style.color = "hsla(0,0%,100%,.3)" }} styles={customStyles} {...props} />
+            <ReactSelect id={id} options={options} el={options.length} onMenuOpen={() => { ref.current.style.color = "#cc7954" }} onMenuClose={() => { ref.current.style.color = "hsla(0,0%,100%,.3)" }} styles={customStyles} {...props} />
             <Label ref={ref} htmlFor={id} >{label}</Label>
         </>
     )

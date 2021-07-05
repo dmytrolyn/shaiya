@@ -1,0 +1,33 @@
+@import url("https://fonts.googleapis.com/css?family=Material+Icons|Work+Sans:400,700,900");
+
+.wrap {
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.span {
+  width: 24px;
+  height: 24px;
+  vertical-align: middle;
+  background-image: url('../assets/icon_bg.png');
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.img {
+  width: 16px;
+  height: 16px;
+  transform: scaleY(0.94) scaleX(0.98);
+  vertical-align: middle;
+  border-radius: 2px;
+}
+
+.text {
+  margin-left: 2px;
+  letter-spacing: 0.5px;
+}
+

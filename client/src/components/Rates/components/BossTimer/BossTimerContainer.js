@@ -3,7 +3,7 @@ import BossTimer from './BossTimer';
 import Loading from '../../../Common/Loading/Loading';
 import styles from '../../styles/styles.module.css';
 
-const BossTimerContainer = ({ bosses }) => {
+const BossTimerContainer = ({ bosses = [] }) => {
     const [state, setState] = useState(null);
 
     const buildData = (data) => data.map(record => 

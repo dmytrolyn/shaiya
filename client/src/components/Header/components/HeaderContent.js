@@ -10,11 +10,13 @@ import ray from '../assets/ray.png';
 import charsImg from '../assets/chars.png';
 import guildsImg from '../assets/guilds.png';
 import download from '../assets/download.png';
-import windows from '../assets/windows.png';
 import cn from 'classnames';
 import { Spark1, Spark2, Spark3, Spark4, Spark5, Sparks } from '../styled/components';
 
-const HeaderContent = ({ online, chars, guilds, news }) => {
+const HeaderContent = ({ onlineStatus, chars, guilds, news }) => {
+    let { online, aol, uof } = onlineStatus;
+    let isMore = (aol !== 0 && uof !== 0) ? aol > uof : null;
+
     return (
         <>
             <div className={styles.content}>
@@ -62,9 +64,9 @@ const HeaderContent = ({ online, chars, guilds, news }) => {
                                 <p className={styles.downloadBtnDesc}>Game client</p>
                             </span>
                         </Link>
-                        <div className={styles.platformBlock}>
-                            <span className={styles.platformLabel}><img src={windows} alt="windows" /> Only for Windows</span>
-                        </div>
+                        {isMore !== null && <div className={styles.joinBlock}>
+                            <span className={styles.joinLabel}>New players join {isMore ? "UoF" : "AoL"}!</span>
+                        </div>}
                     </div>
                 </div>
                 <Sparks>

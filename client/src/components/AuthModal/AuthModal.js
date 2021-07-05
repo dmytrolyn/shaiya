@@ -2,10 +2,10 @@ import React from 'react';
 import { connect } from 'react-redux';
 import Modal from '../Common/Modal/Modal';
 import AuthWindow from './AuthWindow';
-import { manageAuthModal, manageAlertModal, login } from '../../services/actions';
-import { getAuthModalStatus } from '../../services/reducers';
+import { manageAuthModal, login } from '../../services/actions';
+import { getAuthModalStatus, getInitialModalState } from '../../services/reducers';
 
-const AuthModal = ({ isOpen, manageAuthModal, manageAlertModal, login }) => {
+const AuthModal = ({ isOpen, initState, manageAuthModal, login }) => {
     return (
         <Modal
             isOpen={isOpen}
@@ -13,14 +13,15 @@ const AuthModal = ({ isOpen, manageAuthModal, manageAlertModal, login }) => {
         >
             <AuthWindow handleClose={() => manageAuthModal(false)}
                         login={login}
-                        openAlert={() => manageAlertModal(true, "Your account was successfully registered!")}
+                        init={initState}
             />
         </Modal>
     )
 }
 
 const mapStateToProps = (state) => ({
-    isOpen: getAuthModalStatus(state)
+    isOpen: getAuthModalStatus(state),
+    initState: getInitialModalState(state)
 })
 
-export default connect(mapStateToProps, { manageAuthModal, manageAlertModal, login })(AuthModal);
+export default connect(mapStateToProps, { manageAuthModal, login })(AuthModal);

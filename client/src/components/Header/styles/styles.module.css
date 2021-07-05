@@ -217,7 +217,7 @@
 	}
 }
 
-.platformBlock {
+.joinBlock {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -226,10 +226,10 @@
     margin-left: -14px;
 }
 
-.platformLabel {
+.joinLabel {
     text-decoration: none;
-    font-family: OpenSans;
-    font-size: 12px;
+    font-family: Philosopher;
+    font-size: 14px;
     line-height: 1.2;
     font-weight: 400;
     letter-spacing: .1em;

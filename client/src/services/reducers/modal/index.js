@@ -1,17 +1,14 @@
-import { combineReducers } from 'redux'; 
-import alert, * as fromAlert from './alert';
+import { combineReducers } from "redux";
 import auth, * as fromAuth from './auth';
-import change, * as fromChange from './change';
+import video, * as fromVideo from './video';
 
 export default combineReducers({
-    alert,
     auth,
-    change
+    video
 })
 
 export const getAuthModalStatus = (state) => fromAuth.getAuthModalStatus(state.auth);
+export const getInitialState = (state) => fromAuth.getInitialState(state.auth);
 
-export const getAlertModalStatus = (state) => fromAlert.alertModalStatus(state.alert);
-export const getAlertModalMessage = (state) => fromAlert.alertModalMessage(state.alert);
-
-export const getChangeModalStatus = (state) => fromChange.changeModalStatus(state.change);
+export const getVideoModalStatus = (state) => fromVideo.getVideoModalStatus(state.video);
+export const getVideoData = (state) => fromVideo.getVideoData(state.video);

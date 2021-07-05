@@ -25,7 +25,6 @@
 }
 
 .navList {
-    margin-left: 75px;
     display: flex;
 	align-items: center;
 	justify-content: space-between;
@@ -185,9 +184,14 @@
     margin-left: 20px;
 }
 
-.logo {
+.logoDesktop, .logoMobile {
     width: 68px;
 	height: 64px;
+}
+
+.logoMobile {
+	display: none;
+	z-index: 800;
 }
 
 .logoImg {
@@ -220,5 +224,101 @@
 	}
 	to {
 		opacity: 1
+	}
+}
+
+.mobile {
+	height: 100%;
+	width: 320px;
+	display: none;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.mobileBtn {
+    background-color: transparent;
+    border: 0;
+    color: #ffffff;
+    font-size: 40px;
+    padding: 0 30px;
+    line-height: 70px;
+	z-index: 800;
+}
+
+@media screen and (max-width: 920px) {
+	.mobile {
+		display: flex;
+	}
+
+	.navList {
+		position: fixed;
+		width: 320px;
+		height: 100%;
+		background: rgba(0, 0, 0, 0.8);
+		left: -420px;
+		top: 0px;
+		z-index: 750;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		padding: 0 20px 40px 0;
+		-webkit-transition: 0.3s;
+		transition: 0.3s;
+	}
+
+	.navBlock {
+		padding: 0;
+	}
+
+	.navActive {
+		left: 0px;
+	}
+
+	.logoDesktop {
+		display: none;
+	}
+
+	.logoActive {
+		display: block;
+	}
+
+	.navItem, .navLink {
+		margin: 20px 0;
+	}
+
+	.navItemMobile {
+		margin: 0;
+	}
+
+	.navItemMobile span, .navItemMobile img {
+		display: none;
+	}
+
+	.navSub {
+		height: auto;
+	}
+
+	.subMenu {
+		display: block;
+		position: static;
+
+		width: auto;
+
+		background: transparent;
+		box-shadow: none;
+		padding: 0;
+		text-align: center;
+	}
+
+	.subLinkMobile {
+		margin: 0;
+	}
+
+	.subImageWrap {
+		display: none;
+	}
+
+	.userMenu {
+		top: 70px;
 	}
 }

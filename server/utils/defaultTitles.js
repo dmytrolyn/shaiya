@@ -8,7 +8,8 @@ const defaultTitles = {
     bosses2: ['MobName', 'Killer', 'TimeLeft'],
     rewards: ['Rank', 'Points', 'Item'],
     deletedChars: ['CharName', 'Family', 'Job', 'Level', 'DeleteDate'],
-    activeChars: ['CharName', 'Family', 'Job', 'Level', 'JoinDate']
+    activeChars: ['CharName', 'Family', 'Job', 'Level', 'JoinDate'],
+    rouletteLogs: ['ItemName', 'Count', 'Date']
 }
 
 module.exports = defaultTitles;
