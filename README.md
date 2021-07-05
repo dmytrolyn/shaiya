@@ -25,5 +25,8 @@
 - Promotion code system
 - Admin Panel
 
+### Deploy
+Nginx web-server + pm2
+
 ### Demo
 [Youtube link](https://www.youtube.com/watch?v=Mk5C8oKOzbs)
