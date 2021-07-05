@@ -20,5 +20,10 @@
 - Tiered Spender
 - Roulette
 
+### Todo
+- Vote page
+- Promotion code system
+- Admin Panel
+
 ### Demo
 [Youtube link](https://www.youtube.com/watch?v=Mk5C8oKOzbs)
