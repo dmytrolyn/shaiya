@@ -26,7 +26,3 @@ export const Input = styled.input`
         color: #cc7954;
     }
 `;
-
-export const FormInput = styled(Input)`
-    margin-top: 20px;
-`

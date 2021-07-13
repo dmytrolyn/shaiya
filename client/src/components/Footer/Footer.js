@@ -10,7 +10,7 @@ import visa from './assets/visa.png';
 import mcard from './assets/mcard.png';
 import g2p from './assets/g2p.png';
 
-const Footer = () => {
+const Footer = ({ hasAuth, openRegister }) => {
     return (
         <footer className={styles.footer}>
             <div className={styles.footerContentWrap}>
@@ -19,16 +19,16 @@ const Footer = () => {
                         <BlockTitle>Information</BlockTitle>
                         <ul className={styles.footerContentList}>
                             <FooterItem>
-                                <Link className={styles.footerContentLink} to="/">About the game</Link>
+                                <Link className={styles.footerContentLink} to="/droplist">Droplist</Link>
                             </FooterItem>
                             <FooterItem>
-                                <Link className={styles.footerContentLink} to="/">Game Wiki</Link>
+                                <Link className={styles.footerContentLink} to="/ranks">Players</Link>
                             </FooterItem>
                             <FooterItem>
-                                <Link className={styles.footerContentLink} to="/">Terms of services</Link>
+                                <Link className={styles.footerContentLink} to="/guilds">Guilds</Link>
                             </FooterItem>
                             <FooterItem>
-                                <Link className={styles.footerContentLink} to="/">Agreement</Link>
+                                <Link className={styles.footerContentLink} to="/bosses">Boss records</Link>
                             </FooterItem>
                         </ul>
                     </div>
@@ -36,16 +36,11 @@ const Footer = () => {
                         <BlockTitle>How to start</BlockTitle>
                         <ul className={styles.footerContentList}>
                             <FooterItem>
-                                <Link className={styles.footerContentLink} to="/">Registration</Link>
+                                {!hasAuth ? <Link className={styles.footerContentLink} onClick={openRegister} >Registration</Link> :
+                                <Link className={styles.footerContentLink} to="/profile">Profile</Link>}
                             </FooterItem>
                             <FooterItem>
-                                <Link className={styles.footerContentLink} to="/">Downloads</Link>
-                            </FooterItem>
-                            <FooterItem>
-                                <Link className={styles.footerContentLink} to="/">Personal area</Link>
-                            </FooterItem>
-                            <FooterItem>
-                                <Link className={styles.footerContentLink} to="/">FAQ</Link>
+                                <Link className={styles.footerContentLink} to="/downloads">Downloads</Link>
                             </FooterItem>
                         </ul>
                     </div>
@@ -53,13 +48,13 @@ const Footer = () => {
                         <BlockTitle>Community</BlockTitle>
                         <ul className={styles.footerContentList}>
                             <FooterItem>
-                                <Link className={styles.footerContentLink} to="/">Forum</Link>
+                                <Link className={styles.footerContentLink} to="/">Facebook</Link>
                             </FooterItem>
                             <FooterItem>
-                                <Link className={styles.footerContentLink} to="/">Rankings</Link>
+                                <Link className={styles.footerContentLink} to="/">Discord</Link>
                             </FooterItem>
                             <FooterItem>
-                                <Link className={styles.footerContentLink} to="/">Administration</Link>
+                                <Link className={styles.footerContentLink} to="/">Youtube</Link>
                             </FooterItem>
                         </ul>
                     </div>

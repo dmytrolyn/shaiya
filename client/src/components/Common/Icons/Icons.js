@@ -25,6 +25,7 @@ import { ReactComponent as SignOutSvg } from './assets/sign-out-alt-solid.svg';
 import { ReactComponent as StatusSvg } from './assets/check-square-regular.svg';
 import { ReactComponent as DiceSvg } from './assets/dice-five-solid.svg';
 import { ReactComponent as PlayerSvg } from './assets/play-circle-solid.svg';
+import { ReactComponent as TicketSvg } from './assets/ticket-alt-solid.svg';
 
 export const ArrowActive = () => {
     return (
@@ -140,5 +141,9 @@ export const DiceIcon = (props) => (
 
 export const PlayIcon = (props) => (
     <PlayerSvg {...props} />
+)
+
+export const TicketIcon = (props) => (
+    <TicketSvg {...props} />
 )
 

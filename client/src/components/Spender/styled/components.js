@@ -53,8 +53,8 @@ export const SequenceStep = styled.div`
     width: 60px;
     height: 60px;
 
-    background: url(${frame});
-    background-repeat: no-repeat;
+    background: url(${frame}) no-repeat;
+    background-position: center;
     background-size: cover;
 
     font-size: 22px;

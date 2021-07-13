@@ -15,11 +15,11 @@ const TieredSpender = ({ spenders, getReward }) => {
                 <Sequence>
                     <SequenceLevel>
                         <SequenceStep>1</SequenceStep>
-                        <span>Spend Shaiya Points in the in-game mall as well as in web-site.</span>
+                        <span>Spend Shaiya Points in the in-game mall as well as on web-site.</span>
                     </SequenceLevel>
                     <SequenceLevel>
                         <SequenceStep>2</SequenceStep>
-                        <span>Collect the required amounts of spent SP and reach levels in spender</span>
+                        <span>Collect the required amounts of spent SP and reach levels in spenders</span>
                     </SequenceLevel>
                     <SequenceLevel>
                         <SequenceStep>3</SequenceStep>

@@ -10,14 +10,14 @@ const NewsItem = ({ item }) => {
     return (
         <ContentSection>
             <div className={styles.newsItemWrap}>
-                <div className={styles.newsItemHead}>
-                        <div className={styles.newsItemTitle}>
-                            <div>{item.Title}</div>
-                        </div>
-                        <div className={styles.newsItemContentDate}>{(() => new Date(item.Date).toLocaleDateString())()}</div>
-                </div>
                 <div className={styles.newsItemImagePreviewWrap}>
                     {item.Image && <img className={styles.newsImage} src={`${process.env.REACT_APP_STATIC_IMAGES}/${item.Image}`} alt="news" />}
+                </div>
+                <div className={styles.newsItemHead}>
+                    <div className={styles.newsItemTitle}>
+                        <div>{item.Title}</div>
+                    </div>
+                    <div className={styles.newsItemContentDate}>{(() => new Date(item.Date).toLocaleDateString())()}</div>
                 </div>
                 <div className={styles.newsItemContent}>
                     <div className={styles.newsBody}>

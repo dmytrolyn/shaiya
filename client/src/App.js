@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import Header from './components/Header/Header';
 import Content from './components/Content/Content';
-import Footer from './components/Footer/Footer';
+import Footer from './components/Footer/FooterContainer';
 import Scroll from './components/ScrollTop/ScrollTop';
 import AuthModal from './components/AuthModal/AuthModal';
 import VideoModal from './components/VideoModal/VideoModal';

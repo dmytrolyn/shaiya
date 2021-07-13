@@ -2,6 +2,7 @@ const checkUserDeletedCharacter = "SELECT COUNT(*) as Count FROM PS_GameData.dbo
 const checkUserActiveCharacter = "SELECT COUNT(*) as Count FROM PS_GameData.dbo.Chars WHERE UserUID = @uid and CharID = @id and Del = 0";
 const getCharNameById = `SELECT CharName FROM PS_GameData.dbo.Chars WHERE CharID = @id`;
 const checkCharacterDataQuery = "SELECT um.UserID, umg.Country, c.Family, c.Del FROM PS_UserData.dbo.Users_Master AS um INNER JOIN PS_GameData.dbo.UserMaxGrow AS umg ON umg.UserUID = um.UserUID INNER JOIN PS_GameData.dbo.Chars AS c ON c.UserUID = um.UserUID WHERE c.CharID = @id";
+const getCharById = "SELECT * FROM PS_GameData.dbo.Chars WHERE CharID = @id";
 const checkUserSlots = "SELECT Slot FROM PS_GameData.dbo.Chars WHERE UserUID = @uid and Del = 0";
 const resurrectQuery = "UPDATE PS_GameData.dbo.Chars SET DeleteDate = NULL, Del = 0, Map = 42, PosX = 47 , PosY = 2, PosZ = 52, Slot = @slot WHERE CharID = @id";
 const deleteCharQuery = "UPDATE PS_GameData.dbo.Chars SET DeleteDate = GETDATE(), Del = 1 WHERE CharID = @id";
@@ -36,12 +37,18 @@ FULL OUTER JOIN WebResource.dbo.Roulette B ON A.ItemRowID = B.RowID
 FULL OUTER JOIN PS_GameDefs.dbo.Items C ON B.ItemID = C.ItemID
 WHERE A.UserUID = @uid
 ORDER BY A.Date DESC`;
+const getPromoByCode = "SELECT * FROM WebResource.dbo.Promo WHERE Code = @code AND Del = 0";
+const getPromoItems = "SELECT * FROM WebResource.dbo.PromoRewards WHERE PromoID = @id";
+const getPromoLogsCount = "SELECT * FROM WebResource.dbo.PromoLog WHERE PromoID = @id";
+const pushPromoLog = "INSERT INTO WebResource.dbo.PromoLog (PromoID, UserUID, Date) VALUES (@id, @uid, GETDATE())";
+const disablePromoCode = "UPDATE WebResource.dbo.Promo SET Del = 1 WHERE RowID = @id";
 
 module.exports = {
     checkUserDeletedCharacter,
     checkUserActiveCharacter,
     getCharNameById,
     checkCharacterDataQuery,
+    getCharById,
     checkUserSlots,
     resurrectQuery,
     deleteCharQuery,
@@ -64,5 +71,10 @@ module.exports = {
     clearUserSpenderProgress,
     getRouletteItems,
     addRouletteSpinLog,
-    getUserRouletteRewards
+    getUserRouletteRewards,
+    getPromoByCode,
+    getPromoItems,
+    getPromoLogsCount,
+    pushPromoLog,
+    disablePromoCode
 }

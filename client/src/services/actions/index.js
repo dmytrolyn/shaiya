@@ -131,9 +131,9 @@ export const resurrectChar = (charID) => ({
     charID
 })
 
-export const charActionError = (charID, error) => ({
+export const charActionError = (charName, error) => ({
     type: types.CHAR_ACTION_ERROR,
-    charID,
+    charName,
     error
 })
 
@@ -206,14 +206,21 @@ export const rouletteError = (error) => ({
 })
 
 export const deleteCharThunk = (charID) => async (dispatch) => {
-    dispatch(charActionLoading(charID, true));
-    let resp = await API.makeDeleteCharRequest({ CharID: charID });
-    dispatch(charActionLoading(charID, false));
-    if(resp.resultCode === 0) {
-        dispatch(deleteChar(charID));
-    } else {
-        dispatch(charActionError(resp.CharName, resp.message))
-        setTimeout(() => dispatch(charActionError(resp.CharName, null)), 3000);
+    try {
+        dispatch(charActionLoading(charID, true));
+        let resp = await API.makeDeleteCharRequest({ CharID: charID });
+        dispatch(charActionLoading(charID, false));
+        if(resp.resultCode === 0) {
+            dispatch(deleteChar(charID));
+        } else {
+            dispatch(charActionError(resp.CharName, resp.message))
+            setTimeout(() => dispatch(charActionError(resp.CharName, null)), 3000);
+        }
+    } catch(err) {
+        let id = Symbol();
+        dispatch(charActionLoading(charID, false));
+        dispatch(charActionError(id, "Some error occurred while deleting characheter"));
+        setTimeout(() => dispatch(charActionError(id, null)), 3000);
     }
 }
 
@@ -239,15 +246,22 @@ export const resurrectCharThunk = (charID) => async (dispatch, getState) => {
     let { Point } = profile.info;
 
     if(Point >= price && Point !== 0) {
-        dispatch(charActionLoading(charID, true));
-        let resp = await API.makeResurrectRequest({ CharID: charID });
-        dispatch(charActionLoading(charID, false));
-        if(resp.resultCode === 0) {
-            dispatch(changeUserBalance(Number(price)));
-            dispatch(resurrectChar(charID));
-        } else {
-            dispatch(charActionError(resp.CharName, resp.message));
-            setTimeout(() => dispatch(charActionError(resp.CharName, null)), 3000);
+        try {
+            dispatch(charActionLoading(charID, true));
+            let resp = await API.makeResurrectRequest({ CharID: charID });
+            dispatch(charActionLoading(charID, false));
+            if(resp.resultCode === 0) {
+                dispatch(changeUserBalance(Number(price)));
+                dispatch(resurrectChar(charID));
+            } else {
+                dispatch(charActionError(resp.CharName, resp.message));
+                setTimeout(() => dispatch(charActionError(resp.CharName, null)), 3000);
+            }
+        } catch(err) {
+            let id = Symbol();
+            dispatch(charActionLoading(charID, false));
+            dispatch(charActionError(id, "Error occured while resurrecting charachter"));
+            setTimeout(() => dispatch(charActionError(id, null)), 3000);
         }
     } else {
         dispatch(charActionError("You don't have enough points"));
@@ -255,25 +269,36 @@ export const resurrectCharThunk = (charID) => async (dispatch, getState) => {
 }
 
 export const getRewardThunk = (rank) => async (dispatch) => {
-    dispatch(rankRewardLoading(rank, true));
-    let resp = await API.getRankRewardRequest({ rank });
-    dispatch(rankRewardLoading(rank, false));
-    if(resp.resultCode === 0) {
-        dispatch(getRankReward(rank));
-    } else {
-        dispatch(rankRewardError(resp.message));
+    try {
+        dispatch(rankRewardLoading(rank, true));
+        let resp = await API.getRankRewardRequest({ rank });
+        dispatch(rankRewardLoading(rank, false));
+        if(resp.resultCode === 0) {
+            dispatch(getRankReward(rank));
+        } else {
+            dispatch(rankRewardError(resp.message));
+            setTimeout(() => dispatch(rankRewardError("")), 3000);
+        }
+    } catch(err) {
+        dispatch(rankRewardLoading(rank, false));
+        dispatch(rankRewardError("Some error occured while getting reward"));
         setTimeout(() => dispatch(rankRewardError("")), 3000);
     }
 } 
 
 export const getSpenderRewardThunk = (spenderID, level, rowID) => async (dispatch) => {
-    dispatch(spenderRewardLoading({ spenderID, level, rowID }));
-    let resp = await API.getSpenderReward({ spenderID, level, rowID });
-    dispatch(spenderRewardLoading(null));
-    if(resp.resultCode === 0) {
-        dispatch(getSpenderReward(spenderID, level));
-    } else {
-        dispatch(spenderRewardError(resp.message));
+    try {
+        dispatch(spenderRewardLoading({ spenderID, level, rowID }));
+        let resp = await API.getSpenderReward({ spenderID, level, rowID });
+        dispatch(spenderRewardLoading(null));
+        if(resp.resultCode === 0) {
+            dispatch(getSpenderReward(spenderID, level));
+        } else {
+            dispatch(spenderRewardError(resp.message));
+            setTimeout(() => dispatch(spenderRewardError("")), 3000);
+        }
+    } catch(err) {
+        dispatch(spenderRewardError("Error while getting reward"));
         setTimeout(() => dispatch(spenderRewardError("")), 3000);
     }
 }
@@ -283,24 +308,30 @@ export const getRouletteRewardThunk = () => async (dispatch, getState) => {
     let { price } = profile.roulette.data;
     let { Point } = profile.info;
     if(Point >= price && Point !== 0) {
-        dispatch(setRouletteLoading(true));
-        let resp = await API.getRouletteReward();
-        if(resp.resultCode === 0) {
-            let { message } = resp;
-            dispatch(setRouletteStatus(resp.reward))
-            setTimeout(() => {
-                dispatch(addRouletteReward(resp.reward));
-                dispatch(changeUserBalance(Number(price)));
+        try {
+            dispatch(setRouletteLoading(true));
+            let resp = await API.getRouletteReward();
+            if(resp.resultCode === 0) {
+                let { message } = resp;
+                dispatch(setRouletteStatus(resp.reward))
+                setTimeout(() => {
+                    dispatch(addRouletteReward(resp.reward));
+                    dispatch(changeUserBalance(Number(price)));
 
-                let id = Symbol();
-                dispatch(setRouletteResultMessage({ id, message }));
-                setTimeout(() => dispatch(setRouletteResultMessage({ id, message: null })), 3000);
-            }, 3000)
-        } else {
-            dispatch(rouletteError(resp.message));
+                    let id = Symbol();
+                    dispatch(setRouletteResultMessage({ id, message }));
+                    setTimeout(() => dispatch(setRouletteResultMessage({ id, message: null })), 3000);
+                }, 3000)
+            } else {
+                dispatch(rouletteError(resp.message));
+                setTimeout(() => dispatch(rouletteError("")), 3000);
+            }
+            dispatch(setRouletteLoading(false));
+        } catch(err) {
+            dispatch(setRouletteLoading(false));
+            dispatch(rouletteError("Spin failed. Try later"));
             setTimeout(() => dispatch(rouletteError("")), 3000);
         }
-        dispatch(setRouletteLoading(false));
     }
 }
 
@@ -308,25 +339,32 @@ export const makePurchaseThunk = (id) => async (dispatch, getState) => {
     let { profile, pages } = getState();
     let { Point } = profile.info;
     let toBuy = pages.shop.items.find(i => i.RowID === id);
-    if(Point >= toBuy.Price && Point !== 0) {
-        dispatch(setShopLoading(id));
-        let resp = await API.makePurchaseRequest(id);
-        let { message } = resp;
-        if(resp.resultCode === 0) {
-            dispatch(changeUserBalance(toBuy.Price));
-            dispatch(increaseSpendersStatus(toBuy.Price));
 
-            let id = Symbol();
-            dispatch(setShopMessage({ id, message }));
-            setTimeout(() => dispatch(setShopMessage({ id, message: null })), 3000);
+    let uid = Symbol();
+
+    try {
+        if(Point >= toBuy.Price && Point !== 0) {
+            dispatch(setShopLoading(id));
+            let resp = await API.makePurchaseRequest(id);
+            let { message } = resp;
+    
+            if(resp.resultCode === 0) {
+                dispatch(changeUserBalance(toBuy.Price));
+                dispatch(increaseSpendersStatus(toBuy.Price));
+    
+                dispatch(setShopMessage({ id: uid, message }));
+                setTimeout(() => dispatch(setShopMessage({ id: uid, message: null })), 3000);
+            } else {
+                dispatch(setShopError({ id: uid, message }));
+                setTimeout(() => dispatch(setShopError({ id: uid, message: null })), 3000);
+            }
         } else {
-            let id = Symbol();
-            dispatch(setShopError({ id, message }));
-            setTimeout(() => dispatch(setShopError({ id, message: null })), 3000);
+            dispatch(setShopError({ id: uid, message: "You don't have enough SP to buy this item" }));
+            setTimeout(() => dispatch(setShopError({ id: uid, message: null })), 3000);
         }
-    } else {
-        dispatch(setShopError("You don't have enough SP to buy this item"));
-        setTimeout(() => dispatch(setShopError("")), 3000);
+    } catch(err) {
+        dispatch(setShopError({ id: uid, message: "Error while buying item" }));
+        setTimeout(() => dispatch(setShopError({ id: uid, message: null })), 3000);
     }
     dispatch(setShopLoading(null));
 }

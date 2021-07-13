@@ -9,8 +9,8 @@ export const trKeys = {
     ItemName: "Item"
 };
 
-const createGMTDate = (date) => {
-    date = new Date(date).toGMTString();
+const createDate = (date) => {
+    date = new Date(date).toLocaleString();
     date = date.split(' ').slice(0, 5).join(' ');
     return date;
 }
@@ -30,19 +30,19 @@ const trValue = (key, val, size) => {
             return <CustomRankIcon index={val} />;
         };
         case "CreateDate": {
-            return createGMTDate(val);
+            return createDate(val);
         };
         case "JoinDate": {
-            return createGMTDate(val);
+            return createDate(val);
         };
         case "Date": {
-            return createGMTDate(val);
+            return createDate(val);
         }
         case "Time": {
-            return createGMTDate(val);
+            return createDate(val);
         };
         case "DeleteDate": {
-            return createGMTDate(val);
+            return createDate(val);
         }
         case "TimeLeft": {
             return getTimeString(val);

@@ -4,6 +4,7 @@ const express = require('express');
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
 const passport = require('passport');
+const compression = require('compression');
 
 const app = express();
 
@@ -15,6 +16,8 @@ const profileRouter = require('./routers/profile');
 const newsRouter = require('./routers/news');
 const shopRouter = require('./routers/shop');
 
+app.use(compression());
+app.use(express.static('public'));
 app.use(cors({ credentials: true, origin: "http://localhost:3000" }));
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
@@ -29,16 +32,6 @@ app.use('/api/v1/recent', recentRouter);
 app.use('/api/v1/profile', profileRouter);
 app.use('/api/v1/news', newsRouter);
 app.use('/api/v1/shop', shopRouter);
-
-app.get('/images/:filename', function(req,res) {
-    let name = req.params.filename;
-    res.download(__dirname + '/public/images/' + name);
-});
-
-app.get('/icons/:filename', function(req,res) {
-    let name = req.params.filename;
-    res.download(__dirname + '/public/icons/' + name);
-});
 
 async function start() {
     try {

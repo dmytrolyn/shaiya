@@ -20,11 +20,6 @@
     font-family: Philosopher;
 }
 
-.newsItemHead {
-    width: 100%;
-    border-bottom: 1px solid rgba(255,255,255, 0.8);
-}
-
 .newsItemTitle {
     font-size: 32px;
     color: white;
@@ -58,8 +53,9 @@
 }
 
 .newsItemHead {
-    width: 95%;
-    margin: 0 auto;
+    width: 100%;
+
+    border-bottom: 1px solid rgba(255,255,255, 0.8);
 
     display: flex;
     justify-content: space-between;

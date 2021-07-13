@@ -71,3 +71,5 @@ export const getSpenderReward = (payload) => protectedInstance.post('/profile/sp
 export const getRouletteItems = () => protectedInstance.get('/profile/roulette').then(resp => resp.data);
 
 export const getRouletteReward = () => protectedInstance.post('/profile/roulette').then(resp => resp.data);
+
+export const getPromotionRewardRequest = (payload) => protectedInstance.post('/profile/promo', payload).then(resp => resp.data);

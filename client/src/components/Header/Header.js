@@ -14,4 +14,5 @@ const Header = ({ online, ...props}) => {
         </TopSection>
     )
 }
+
 export default Header;

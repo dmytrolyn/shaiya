@@ -66,11 +66,10 @@ const customStyles = {
         color: '#fff',
         border: '0.5px solid hsla(0,0%,100%,.3)',
         position: 'absolute',
-        bottom: `${state.el * 40}px`,
         zIndex: 200,
         padding: 0,
-        left: 0,
-        overflowY: 'none',
+        top: '105%',
+        left: '-1px'
     }),
     menuList: (styles, state) => ({
         maxHeight: '300px',
@@ -86,7 +85,7 @@ export const Select = ({ label, id, options, ...props}) => {
 
     return (
         <>
-            <ReactSelect id={id} options={options} el={options.length} onMenuOpen={() => { ref.current.style.color = "#cc7954" }} onMenuClose={() => { ref.current.style.color = "hsla(0,0%,100%,.3)" }} styles={customStyles} {...props} />
+            <ReactSelect id={id} options={options} onMenuOpen={() => { ref.current.style.color = "#cc7954" }} onMenuClose={() => { ref.current.style.color = "hsla(0,0%,100%,.3)" }} styles={customStyles} {...props} />
             <Label ref={ref} htmlFor={id} >{label}</Label>
         </>
     )

@@ -9,7 +9,7 @@ const uq = require('../queries/utils')
 const router = express.Router();
 const defaultTitles = require('../utils/defaultTitles');
 const setRank = require('../utils/ranks');
-const { getFirstFreeSlot } = require('../utils/db');
+const { getFreeSlots } = require('../utils/db');
 
 router.get('/user', passport.authenticate('jwt', { session: false }), (req, res) => {
     let { Pw, ...rest } = req.user;
@@ -62,12 +62,15 @@ router.post('/resurrect', passport.authenticate('jwt', { session: false }), asyn
                     res.status(200).json({ resultCode: 1, message: `Invalid character ${charName}`, CharName: charName });
                 }
             } else {
-                res.status(200).json({ resultCode: 1, message: "You do not have enough ZZ-points" });
+                res.status(200).json({ resultCode: 1, message: "You do not have enough SP" });
             }
         } else {
-            res.status(200).json({ resultCode: 1, message: `Character ${charName} does not exist`, CharName: charName });
+            let chr = await runPreparedQuery(q.getCharById, { id: CharID });
+            let name = chr.recordset[0].CharName;
+            res.status(200).json({ resultCode: 1, message: `Character ${name} does not exist on your account`, CharName: name });
         }
     } catch(err) {
+        console.log(err)
         res.sendStatus(500);
     }
 })
@@ -107,8 +110,8 @@ router.get('/resurrect', passport.authenticate('jwt', { session: false }), async
 router.post('/reward', passport.authenticate('jwt', { session: false }), async (req, res) => {
     let { rank } = req.body;
     try {
-        let freeSlot = await getFirstFreeSlot(req.user.UserUID);
-        if(freeSlot !== null) {
+        let freeSlots = await getFreeSlots(req.user.UserUID);
+        if(freeSlots.length > 0) {
             let kResp = await runPreparedQuery(q.userMaxKillsQuery, { uid: req.user.UserUID });
             let maxKills = kResp.recordset.reduce((curr, next) => next.K1 > curr ? next.K1 : curr, 0);
 
@@ -117,7 +120,7 @@ router.post('/reward', passport.authenticate('jwt', { session: false }), async (
             } else {
                 let itemResp = await runPreparedQuery(q.pvpRewardQuery, { rank });
                 let { Item, Count } = itemResp.recordset[0];
-                let purchase = await runPreparedQuery(uq.pushUserRewardItem, { uid: req.user.UserUID, slot: freeSlot, id: Item, count: Count, pc: "PvP Reward" });
+                let purchase = await runPreparedQuery(uq.pushUserRewardItem, { uid: req.user.UserUID, slot: freeSlots[0], id: Item, count: Count, pc: "PvP Reward" });
                 if(purchase.rowsAffected > 0) {
                     await runPreparedQuery(q.addPersonalRewardLogQuery, { uid: req.user.UserUID, rank });
                     res.status(200).json({ resultCode: 0 });
@@ -170,12 +173,12 @@ router.post('/spender', passport.authenticate('jwt', { session: false }), async 
     let { spenderID, level, rowID } = req.body;
 
     try {
-        let freeSlot = await getFirstFreeSlot(req.user.UserUID);
+        let freeSlots = await getFreeSlots(req.user.UserUID);
 
-        if(freeSlot !== null) {
+        if(freeSlots.length > 0) {
             let itemResp = await runPreparedQuery(q.getSpenderItem, { id: rowID });
-            let purchase = await runPreparedQuery(q.pushUserRewardItem, { uid: req.user.UserUID, slot: freeSlot, id: itemResp.recordset[0].ItemID, count: itemResp.recordset[0].Count, pc: "Tiered spender" });
-            if(purchase.rowsAffected > 0) {
+            let purchase = await runPreparedQuery(uq.pushUserRewardItem, { uid: req.user.UserUID, slot: freeSlots[0], id: itemResp.recordset[0].ItemID, count: itemResp.recordset[0].Count, pc: "Tiered spender" });
+            if(purchase.rowsAffected[0] > 0) {
                 await runPreparedQuery(q.addSpenderRewardLog, { id: spenderID, level, uid: req.user.UserUID, row: rowID });
                 res.status(200).json({ resultCode: 0 });
             } else {
@@ -209,18 +212,18 @@ router.post('/roulette', passport.authenticate('jwt', { session: false }), async
 
         if(req.user.Point >= process.env.SPIN_PRICE) {
             // search for nearest empty bank slot
-            let freeSlot = await getFirstFreeSlot(req.user.UserUID);
+            let freeSlots = await getFreeSlots(req.user.UserUID);
 
-            if(freeSlot !== null) {
+            if(freeSlots.length > 0) {
                 // push reward to bank
-                let purchase = await runPreparedQuery(uq.pushUserRewardItem, { uid: req.user.UserUID, slot: freeSlot, id: reward.ItemID, count: reward.Count, pc: "Roulette" });
+                let purchase = await runPreparedQuery(uq.pushUserRewardItem, { uid: req.user.UserUID, slot: freeSlots[0], id: reward.ItemID, count: reward.Count, pc: "Roulette" });
                 if(purchase.rowsAffected > 0) {
                     // pay for spin and log it
                     let status = await Promise.all([runPreparedQuery(q.addRouletteSpinLog, { uid: req.user.UserUID, irid: reward.RowID }), 
                         runPreparedQuery(uq.reduceUserPoints, { uid: req.user.UserUID, diff: process.env.SPIN_PRICE })]);
 
                     if(status[0].rowsAffected[0] > 0 && status[1].rowsAffected[0] > 0) {
-                        res.status(200).json({ resultCode: 0, reward: reward.RowID, message: `${reward.ItemName} x${reward.Count} was delivered to ${freeSlot} slot of Bank` });
+                        res.status(200).json({ resultCode: 0, reward: reward.RowID, message: `${reward.ItemName} x${reward.Count} was delivered to ${freeSlots[0]} slot of Bank` });
                     } else {
                         res.status(200).json({ resultCode: 1, message: "Some error occurred while changing balance, try later" });
                     }
@@ -234,7 +237,55 @@ router.post('/roulette', passport.authenticate('jwt', { session: false }), async
             res.status(200).json({ resultCode: 1, message: "You don't have enough points to spin" });
         }
     } catch(err) {
-        console.log(err);
+        res.sendStatus(500);
+    }
+})
+
+router.post('/promo', passport.authenticate('jwt', { session: false }), async (req, res) => {
+    let { code } = req.body;
+
+    try {
+        let pr = await runPreparedQuery(q.getPromoByCode, { code });
+
+        if(pr.recordset.length > 0) {
+            let reward = pr.recordset[0];
+            let ilp = await Promise.all([runPreparedQuery(q.getPromoItems, { id: reward.RowID }), runPreparedQuery(q.getPromoLogsCount, { id: reward.RowID })]);
+
+            let items = ilp[0].recordset;
+            let logs = ilp[1].recordset;
+
+            if(logs.some(row => row.UserUID === req.user.UserUID)) {
+                res.status(200).json({ resultCode: 1, message: "You have already used this code" });
+                return;
+            }
+
+            if(logs.length < reward.Attempt) {
+                let slots = await getFreeSlots(req.user.UserUID, items.length);
+
+                if(slots.length === items.length) {
+                    let ar = await Promise.all(slots.map((s, index) => runPreparedQuery(uq.pushUserRewardItem, { uid: req.user.UserUID, slot: s, id: items[index].ItemID, count: items[index].Count, pc: "Promo Code" }),
+                    runPreparedQuery(q.pushPromoLog, { id: reward.RowID, uid: req.user.UserUID })));
+
+                    if(ar.every(resp => resp.rowsAffected[0] > 0)) {
+                        res.status(201).json({ resultCode: 0, message: `Your reward was successfully delivered to ${slots.map((s, index) => index !== slots.length - 1 ? `${s}, ` : `${s} `).join('')} slot${slots.length > 1 ? 's' : ""} of Bank` });
+                    } else {
+                        res.status(200).json({ resultCode: 1, message: "Some error occurred while sending rewards" });
+                    }
+                } else {
+                    res.status(200).json({ resultCode: 1, message: "You don't have enough empty slots" });
+                }
+            } else {
+                let dr = await runPreparedQuery(q.disablePromoCode, { id: reward.RowID });
+                if(dr.rowsAffected[0] > 0) {
+                    res.status(200).json({ resultCode: 1, message: "This code is not active anymore" });
+                } else {
+                    res.status(200).json({ resultCode: 1, message: "Error while checking code, try later" });
+                }
+            }
+        } else {
+            res.status(200).json({ resultCode: 1, message: "Code doesn't exist or already disabled" });
+        }
+    } catch(err) {
         res.sendStatus(500);
     }
 })

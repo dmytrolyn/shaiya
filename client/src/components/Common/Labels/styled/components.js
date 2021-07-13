@@ -14,8 +14,3 @@ export const Label = styled.label`
     color: #696868;
     transition: .5s;
 `;
-
-export const FormLabel = styled(Label)`
-    top: 12px;
-    left: 12px;
-`;
