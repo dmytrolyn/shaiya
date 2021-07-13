@@ -22,11 +22,12 @@
 
 ### Todo
 - Vote page
-- Promotion code system
 - Admin Panel
 
 ### Deploy
-Nginx web-server + pm2
+Nginx web-server (static) + pm2 (api)
 
 ### Demo
+[Website Link](http://194.135.22.19/)
+Account for authorization - login:palata48, pass:vpalaty48 (Please do not change password for this account)
 [Youtube link](https://www.youtube.com/watch?v=Mk5C8oKOzbs)
