@@ -18,6 +18,7 @@
 - PvP Rewards
 - User toons page (Delete, ressurrect)
 - Tiered Spender
+- Promotion code system
 - Roulette
 
 ### Todo
