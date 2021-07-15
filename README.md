@@ -30,3 +30,7 @@ Nginx web-server (static) + pm2 (api)
 
 ### Demo
 [Youtube link](https://www.youtube.com/watch?v=Mk5C8oKOzbs)
+
+### Contacts 
+For additional details write to Discord Ayobi#9365 or Telegram @essentiaI\
+(Content may be updated in near future)
